@@ -1,5 +1,6 @@
 import Shcild.LowShild;
 import Shcild.MagicSchild;
+import Skills.DoubleAttack;
 import Warior.Warior;
 
 import java.util.Random;
@@ -31,7 +32,16 @@ public class Start {
                 System.out.println("Computer health is "+wariors[1].getHealth());
                 System.out.println("Game start You");
                 while(true){
-                    System.out.println("You are attacking\nPress enter to continue\nEnter market to go to market");
+                    if(wariors[0] instanceof DoubleAttack) {
+                        DoubleAttack doubleAttack = (DoubleAttack) wariors[0];
+                        if(doubleAttack.getCount()==0) {
+                            System.out.println("Once in a game you can take skill DoubleAttack");
+                        }
+                        System.out.println("You are attacking\nPress enter to continue\nEnter market to go to market\nInput double to take skill DoubleAttack");
+                    }
+                    else{
+                        System.out.println("You are attacking\nPress enter to continue\nEnter market to go to market");
+                    }
                     String response = scanner.nextLine();
                     if(response.equals("")) {
                         attackFirst(wariors);
@@ -40,6 +50,38 @@ public class Start {
                             wariors[0].setCoins(wariors[0].getCoins()+100);
                             passedLevels++;
                             continue compCreateNewHero;
+                        }
+                    }
+                    else if(response.equals("double")){
+                        DoubleAttack doubleAttackWarior = (DoubleAttack)wariors[0];
+                        boolean responseToGetSkill = doubleAttackWarior.dubleAttack();
+
+                        if(responseToGetSkill){
+                            doubleAttackWarior.addToCount();
+                            attackFirst(wariors);
+                            if (wariors[1].getHealth() <= 0) {
+                                System.out.println("You win,go to next step");
+                                wariors[0].setCoins(wariors[0].getCoins()+100);
+                                passedLevels++;
+                                continue compCreateNewHero;
+                            }
+                            attackFirst(wariors);
+                            if (wariors[1].getHealth() <= 0) {
+                                System.out.println("You win,go to next step");
+                                wariors[0].setCoins(wariors[0].getCoins()+100);
+                                passedLevels++;
+                                continue compCreateNewHero;
+                            }
+                        }
+                        else{
+                            System.out.println("You have already take this skill");
+                            attackFirst(wariors);
+                            if (wariors[1].getHealth() <= 0) {
+                                System.out.println("You win,go to next step");
+                                wariors[0].setCoins(wariors[0].getCoins()+100);
+                                passedLevels++;
+                                continue compCreateNewHero;
+                            }
                         }
                     }
                     else if(response.equals("market")){
@@ -77,7 +119,16 @@ public class Start {
                             break compCreateNewHero;
                         }
                     }
-                    System.out.println("You are attacking\nPress enter to continue\nEnter market to go to market");
+                    if(wariors[0] instanceof DoubleAttack) {
+                        DoubleAttack doubleAttack = (DoubleAttack) wariors[0];
+                        if(doubleAttack.getCount()==0) {
+                            System.out.println("Once in a game you can take skill DoubleAttack");
+                        }
+                        System.out.println("You are attacking\nPress enter to continue\nEnter market to go to market\nInput double to take skill DoubleAttack");
+                    }
+                    else{
+                        System.out.println("You are attacking\nPress enter to continue\nEnter market to go to market");
+                    }
                     response = scanner.nextLine();
                     if(response.equals("")){
                         attackFirst(wariors);
@@ -86,6 +137,38 @@ public class Start {
                             wariors[0].setCoins(wariors[0].getCoins()+100);
                             passedLevels++;
                             continue compCreateNewHero;
+                        }
+                    }
+                    else if(response.equals("double")){
+                        DoubleAttack doubleAttackWarior = (DoubleAttack)wariors[0];
+                        boolean responseToGetSkill = doubleAttackWarior.dubleAttack();
+
+                        if(responseToGetSkill){
+                            doubleAttackWarior.addToCount();
+                            attackFirst(wariors);
+                            if (wariors[1].getHealth() <= 0) {
+                                System.out.println("You win,go to next step");
+                                wariors[0].setCoins(wariors[0].getCoins()+100);
+                                passedLevels++;
+                                continue compCreateNewHero;
+                            }
+                            attackFirst(wariors);
+                            if (wariors[1].getHealth() <= 0) {
+                                System.out.println("You win,go to next step");
+                                wariors[0].setCoins(wariors[0].getCoins()+100);
+                                passedLevels++;
+                                continue compCreateNewHero;
+                            }
+                        }
+                        else{
+                            System.out.println("You have already take this skill");
+                            attackFirst(wariors);
+                            if (wariors[1].getHealth() <= 0) {
+                                System.out.println("You win,go to next step");
+                                wariors[0].setCoins(wariors[0].getCoins()+100);
+                                passedLevels++;
+                                continue compCreateNewHero;
+                            }
                         }
                     }
                     else if(response.equals("market")){
@@ -121,7 +204,6 @@ public class Start {
                 System.out.println("You do not have enought coins");
             }
         }
-
     }
     private static Warior createCompPlayer(){
         System.out.println("Comp is creating her hero");
